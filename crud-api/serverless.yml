@@ -1,0 +1,113 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: serverlessdev7
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: serverless-aws-crud
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: crud-api
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: us-east-1
+  profile: serverless_dev_user
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:*
+      Resource: 
+        - "arn:aws:dynamodb:us-east-1:*:table/ItemsTable"
+  environment:
+    TABLE_NAME: ItemsTable
+
+plugins:
+  - serverless-offline
+
+resources:
+  Resources:
+    ItemsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ItemsTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+functions:
+  createItem:
+    handler: handler.create_item
+    timeout: 30
+    memorySize: 128
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package.json"
+        - "!package-lock.json"
+    events:
+      - httpApi:
+          path: /items
+          method: post
+
+  getItems:
+    handler: handler.get_items
+    timeout: 10
+    memorySize: 128
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package.json"
+        - "!package-lock.json"
+    events:
+      - httpApi:
+          path: /items
+          method: get
+
+  getItem:
+    handler: handler.get_item
+    timeout: 10
+    memorySize: 128
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package.json"
+        - "!package-lock.json"
+    events:
+      - httpApi:
+          path: /items/{id}
+          method: get
+
+  updateItem:
+    handler: handler.update_item
+    timeout: 10
+    memorySize: 128
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package.json"
+        - "!package-lock.json"
+    events:
+      - httpApi:
+          path: /items/{id}
+          method: put
+
+  deleteItem:
+    handler: handler.delete_item
+    timeout: 10
+    memorySize: 128
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package.json"
+        - "!package-lock.json"
+    events:
+      - httpApi:
+          path: /items/{id}
+          method: delete
