@@ -40,12 +40,6 @@ functions:
     handler: handler.create_item
     timeout: 30
     memorySize: 128
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package.json"
-        - "!package-lock.json"
     events:
       - httpApi:
           path: /items
@@ -55,12 +49,6 @@ functions:
     handler: handler.get_items
     timeout: 10
     memorySize: 128
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package.json"
-        - "!package-lock.json"
     events:
       - httpApi:
           path: /items
@@ -70,12 +58,6 @@ functions:
     handler: handler.get_item
     timeout: 10
     memorySize: 128
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package.json"
-        - "!package-lock.json"
     events:
       - httpApi:
           path: /items/{id}
@@ -85,12 +67,6 @@ functions:
     handler: handler.update_item
     timeout: 10
     memorySize: 128
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package.json"
-        - "!package-lock.json"
     events:
       - httpApi:
           path: /items/{id}
@@ -100,12 +76,6 @@ functions:
     handler: handler.delete_item
     timeout: 10
     memorySize: 128
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package.json"
-        - "!package-lock.json"
     events:
       - httpApi:
           path: /items/{id}
