@@ -3,7 +3,6 @@ import boto3
 import os
 from uuid import uuid4
 
-session = boto3.Session(profile_name='serverless_dev_user', region_name='us-east-1')
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('ItemsTable')
 
