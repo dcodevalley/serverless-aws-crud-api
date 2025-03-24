@@ -22,6 +22,11 @@ jobs:
         with:
           python-version: '3.13.1'
 
+      - name: Install NPM Dependencies
+        run: |
+          cd crud-api
+          npm install
+
       - name: Install Serverless Framework
         run: npm install -g serverless
 
